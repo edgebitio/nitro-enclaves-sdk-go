@@ -9,6 +9,8 @@ import (
 
 	"github.com/hf/nsm"
 	"github.com/hf/nsm/request"
+
+	"github.com/edgebitio/nitro-enclaves-sdk-go/crypto/cms"
 )
 
 const (
@@ -102,6 +104,10 @@ func (enclave *EnclaveHandle) PublicKey() *rsa.PublicKey {
 
 func (enclave *EnclaveHandle) PrivateKey() *rsa.PrivateKey {
 	return enclave.key
+}
+
+func (enclave *EnclaveHandle) DecryptKMSEnvelopedKey(content []byte) ([]byte, error) {
+	return cms.DecryptEnvelopedKey(enclave.PrivateKey(), content)
 }
 
 func GetOrInitializeHandle() (*EnclaveHandle, error) {
