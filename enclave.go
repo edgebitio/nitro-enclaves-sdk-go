@@ -40,6 +40,9 @@ type AttestationOptions struct {
 	PublicKey any
 }
 
+// EnclaveHandle represents a handle to a Nitro Enclave, including the local
+// Nitro Security Module, and an in-memory 2048 bit RSA key pair, the public key
+// from which can be automatically included in requested attestation documents.
 type EnclaveHandle struct {
 	nsm *nsm.Session
 	key *rsa.PrivateKey
@@ -61,8 +64,9 @@ func (enclave *EnclaveHandle) initialize() error {
 	return nil
 }
 
-// Obtain an attestation document from the enclave's Nitro Security Module.
-// See AttestationOptions for
+// Attest generates and returns an attestation document from the enclave's Nitro
+// Security Module. See AttestationOptions for more details on available
+// options.
 func (enclave *EnclaveHandle) Attest(args AttestationOptions) ([]byte, error) {
 	var publicKey []byte
 	var err error
@@ -98,18 +102,22 @@ func (enclave *EnclaveHandle) Attest(args AttestationOptions) ([]byte, error) {
 	return res.Attestation.Document, nil
 }
 
+// PublicKey reutrns a reference to the Handle's public key.
 func (enclave *EnclaveHandle) PublicKey() *rsa.PublicKey {
 	return &enclave.key.PublicKey
 }
 
-func (enclave *EnclaveHandle) PrivateKey() *rsa.PrivateKey {
-	return enclave.key
-}
-
+// DecryptKMSEnvelopedKey decrypts a KMS 'CiphertextForRecipient' response field,
+// using the enclave's private key.
 func (enclave *EnclaveHandle) DecryptKMSEnvelopedKey(content []byte) ([]byte, error) {
-	return cms.DecryptEnvelopedKey(enclave.PrivateKey(), content)
+	return cms.DecryptEnvelopedKey(enclave.key, content)
 }
 
+// GetOrInitializeHandle returns a reference to the default global enclave
+// handle, initializing that handle in the process if it has not been already.
+// If an error occurs during initialization of the global handle (including if
+// the error occurred during a previous initialization attempt), the error will
+// be returned.
 func GetOrInitializeHandle() (*EnclaveHandle, error) {
 	initMutex.Lock()
 	defer initMutex.Unlock()
@@ -124,4 +132,16 @@ func GetOrInitializeHandle() (*EnclaveHandle, error) {
 	}
 
 	return globalHandle, initializationError
+}
+
+// MustGlobalHandle returns a reference to the default enclave handle. If no
+// handle has been initialized, one will be initialized on-demand. If an error
+// occurs during initialization, panic.
+func MustGlobalHandle() *EnclaveHandle {
+	handle, err := GetOrInitializeHandle()
+	if err != nil {
+		panic(err)
+	}
+
+	return handle
 }
