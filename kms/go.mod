@@ -1,4 +1,4 @@
-module github.com/edgebitio/enclaver/kms
+module github.com/aws/aws-sdk-go-v2/service/kms
 
 go 1.15
 
