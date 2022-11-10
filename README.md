@@ -204,4 +204,4 @@ you will likely want:
 [go-reportcard-badge]: https://goreportcard.com/badge/github.com/edgebitio/nitro-enclaves-sdk-go
 [go-reportcard]: https://goreportcard.com/report/github.com/edgebitio/nitro-enclaves-sdk-go
 [pkg.go.dev-badge]: https://pkg.go.dev/badge/github.com/edgebitio/nitro-enclaves-sdk-go.svg
-[pkg.go.dev]: https://pkg.go.dev/github.com/github.com/edgebitio/nitro-enclaves-sdk-go
+[pkg.go.dev]: https://pkg.go.dev/github.com/edgebitio/nitro-enclaves-sdk-go
