@@ -71,7 +71,7 @@ enclaver build
 ## Obtaining an Attestation Document
 
 The heavy-lifting for obtaining an attestation document is done, behind-the-scenes, by [Nitro Security
-Module Interface for Go)[https://github.com/hf/nsm].
+Module Interface for Go](https://github.com/hf/nsm).
 
 In order for KMS to use NSM attestation documents, the attestation documents
 must include a public key corresponding to a private key accessible by the
