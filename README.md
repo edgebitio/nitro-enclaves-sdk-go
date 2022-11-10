@@ -1,6 +1,7 @@
 # Nitro Enclaves SDK for Go
 
-A pure Go library for utilizing AWS KMS's support for Nitro Enclaves, similar to the [AWS Nitro Enclaves SDK for C].
+A pure Go library for utilizing AWS KMS's support for Nitro Enclaves, similar to the
+[AWS Nitro Enclaves SDK for C](https://github.com/aws/aws-nitro-enclaves-sdk-c).
 
 # Usage
 
@@ -141,7 +142,7 @@ and GenerateRandom operations using the `Recipient` input field:
 
 	kmsClient := kms.NewFromConfig(config)
 
-    // Request a 32 byte data key from KMS, for use in AES-256 operations.
+	// Request a 32 byte data key from KMS, for use in AES-256 operations.
 	dataKeyRes, err := kmsClient.GenerateDataKey(context.Background(), &kms.GenerateDataKeyInput{
 		KeyId:   "arn:aws:kms:us-west-2:xxxxxxxxxx:key/12345678-abcd-ef12-1234-abcdef123456",
 		KeySpec: types.DataKeySpecAes256,
