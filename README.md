@@ -1,5 +1,7 @@
 # Nitro Enclaves SDK for Go
 
+[![Go Report Card][go-reportcard-badge]][go-reportcard] [![Go Reference][pkg.go.dev-badge]][pkg.go.dev]
+
 A pure Go library for utilizing AWS KMS's support for Nitro Enclaves, similar to the
 [AWS Nitro Enclaves SDK for C](https://github.com/aws/aws-nitro-enclaves-sdk-c).
 
@@ -197,3 +199,9 @@ you will likely want:
    - ideally these would be a completely different set of users than those who
    have normal production access, so that Nitro Enclaves + KMS can be used to
    enforce separation of duties.
+
+
+[go-reportcard-badge]: https://goreportcard.com/badge/github.com/edgebitio/nitro-enclaves-sdk-go
+[go-reportcard]: https://goreportcard.com/report/github.com/edgebitio/nitro-enclaves-sdk-go
+[pkg.go.dev-badge]: https://pkg.go.dev/badge/github.com/edgebitio/nitro-enclaves-sdk-go.svg
+[pkg.go.dev]: https://pkg.go.dev/github.com/github.com/edgebitio/nitro-enclaves-sdk-go
